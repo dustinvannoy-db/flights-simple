@@ -54,7 +54,8 @@ jobs:
           DATABRICKS_CLUSTER_ID: ${{ secrets.DATABRICKS_CLUSTER_ID }}
           # SPARK_REMOTE: ${{secrets.SPARK_REMOTE_TST}}   
         run: |
-          pytest tests/ -k test_get_flight_schema__valid
+          pytest tests/ 
+      #-k test_get_flight_schema__valid
       
       # - name: Run integration test with dbconnect
       #   env: 

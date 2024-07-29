@@ -17,7 +17,7 @@ resources:
             job_id: ${resources.jobs.flights_notebook.id}
             job_parameters:
               catalog: main
-              schema: flights_test
+              database: flights_test
           max_retries: 0
           
         - task_key: validation_task
