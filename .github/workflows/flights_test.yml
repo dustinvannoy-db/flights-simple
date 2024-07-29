@@ -26,6 +26,7 @@ jobs:
   deploy:
     name: "Test and deploy bundle"
     runs-on: ubuntu-latest
+    environment: test
     defaults:
       run:
         working-directory: .
@@ -69,9 +70,10 @@ jobs:
   pipeline_update:
     name: "Run pipeline update"
     runs-on: ubuntu-latest
+    environment: test
     defaults:
       run:
-        working-directory: ./flights_project
+        working-directory: .
 
     needs:
       - deploy
