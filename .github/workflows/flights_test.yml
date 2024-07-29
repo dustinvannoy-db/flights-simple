@@ -49,7 +49,10 @@ jobs:
       #----------------------------------------------
       - name: Run unit tests
         env:
-          SPARK_REMOTE: ${{secrets.SPARK_REMOTE_TST}}   
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN_TST }}
+          DATABRICKS_CLUSTER_ID: ${{ secrets.DATABRICKS_CLUSTER_ID }}
+          # SPARK_REMOTE: ${{secrets.SPARK_REMOTE_TST}}   
         run: |
           pytest tests/ -k test_get_flight_schema__valid
       
