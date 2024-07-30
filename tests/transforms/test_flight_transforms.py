@@ -15,9 +15,9 @@ from flights.transforms import flight_transforms
 @pytest.fixture(scope="module")
 def spark_session():
     try:
-        from pyspark.sql import SparkSession
-        return SparkSession.builder.getOrCreate()
-    except ValueError:
+        from databricks.connect import DatabricksSession
+        return DatabricksSession.builder.getOrCreate()   
+    except (ValueError, RuntimeError):
         from databricks.connect import DatabricksSession
         return DatabricksSession.builder.profile("unit_tests").getOrCreate()    
     except ImportError:
