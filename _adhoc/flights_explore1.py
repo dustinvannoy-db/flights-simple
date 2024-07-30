@@ -1,15 +1,20 @@
-from pyspark.sql import SparkSession
+from databricks.connect import DatabricksSession
+from pyspark.sql.functions import col, lit
+import pandas as pd
+
+reference_data = pd.read_csv("_adhoc/data/T_CARRIER_DECODE.csv", header=0)
+
+print(reference_data.head())
 
 # Create a SparkSession
-spark = SparkSession.builder \
-    .appName("Unity Catalog Example") \
+spark = DatabricksSession.builder \
     .getOrCreate()
 
 table = "main.dustinvannoy_dev.flights_raw"
 
-# Connect to Unity Catalog using catalog main
-spark.sql(f"""Select WeatherDelay, NASDelay, SecurityDelay, LateAircraftDelay, IsArrDelayed 
-from {table} 
-where WeatherDelay != 'NA' or NASDelay != 'NA' or SecurityDelay != 'NA' or LateAircraftDelay != 'NA'
-limit 20""").show()
+df = spark.read.table(table)
 
+df.select("UniqueCarrier", "DepTime", "FlightNum").limit(100).show()
+
+filtered_df = df.filter(col("UniqueCarrier") == lit("CO")).limit(1000)
+filtered_df.select("UniqueCarrier", "DepTime", "FlightNum").show()
