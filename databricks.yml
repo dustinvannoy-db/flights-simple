@@ -14,7 +14,7 @@ variables:
   database:
     default: "dustinvannoy_dev"
   all_purpose_cluster_id:
-    default: "0326-164201-qhvj1pwh"  #"0725-142209-7jvag949"
+    default: "0326-164201-qhvj1pwh"
 
 targets:
   # The 'dev' target, used for development purposes.
@@ -27,6 +27,8 @@ targets:
     default: true
     workspace:
       host: https://e2-dogfood.staging.cloud.databricks.com/
+    variables:
+      all_purpose_cluster_id: "0326-164201-qhvj1pwh"
 
   test:
     # For staging deployments, we only have a single copy, so we override the
@@ -54,6 +56,8 @@ targets:
       root_path: /Shared/.bundle/${bundle.target}/${bundle.name}
     run_as:
       user_name: ${workspace.current_user.userName}
+    variables:
+      all_purpose_cluster_id: "0326-164201-qhvj1pwh"
 
   # The 'prod' target, used for production deployment.
   prod:
@@ -69,4 +73,5 @@ targets:
       # This can run as a specific user or service principal in production.
       # To run as service principal use service_principal_name (see Databricks documentation).
       user_name: ${workspace.current_user.userName}
-
+    variables:
+      all_purpose_cluster_id: "0326-164201-qhvj1pwh"
