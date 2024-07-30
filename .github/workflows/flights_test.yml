@@ -26,6 +26,7 @@ jobs:
   deploy:
     name: "Test and deploy bundle"
     runs-on: ubuntu-latest
+    environment: test
     defaults:
       run:
         working-directory: .
@@ -48,9 +49,13 @@ jobs:
       #----------------------------------------------
       - name: Run unit tests
         env:
-          SPARK_REMOTE: ${{secrets.SPARK_REMOTE_TST}}   
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN_TST }}
+          DATABRICKS_CLUSTER_ID: ${{ secrets.DATABRICKS_CLUSTER_ID }}
+          # SPARK_REMOTE: ${{secrets.SPARK_REMOTE_TST}}   
         run: |
-          pytest tests/ -k test_get_flight_schema__valid
+          pytest tests/ 
+      #-k test_get_flight_schema__valid
       
       # - name: Run integration test with dbconnect
       #   env: 
@@ -69,9 +74,10 @@ jobs:
   pipeline_update:
     name: "Run pipeline update"
     runs-on: ubuntu-latest
+    environment: test
     defaults:
       run:
-        working-directory: ./flights_project
+        working-directory: .
 
     needs:
       - deploy

@@ -1,9 +1,26 @@
 """Python functions to test
 These represent Python functions that you would keep in a Python file and import to test.
 """
-
 from pyspark.sql.types import StructType, StructField, IntegerType, StringType
 from pyspark.sql.functions import expr
+
+
+def delay_type_transform(df):
+  delay_expr = expr(
+    """case when WeatherDelay != 'NA'
+              then 'WeatherDelay'
+            when NASDelay != 'NA'
+              then 'NASDelay'
+            when SecurityDelay != 'NA'
+              then 'SecurityDelay'
+            when LateAircraftDelay != 'NA'
+              then 'LateAircraftDelay'
+            when IsArrDelayed == 'YES' OR IsDepDelayed == 'YES'
+              then 'UncategorizedDelay'
+        end
+  """)
+  return df.withColumn("delay_type", delay_expr)
+
 
 def get_flight_schema():
     schema = StructType([
@@ -42,6 +59,18 @@ def get_flight_schema():
     return schema
 
 
+def read_batch(spark, path):
+    schema = get_flight_schema()
+  
+    batch_df = (spark.read.format("csv")
+      .option("header", "false")
+      .schema(schema)
+      .load(path)
+    )
+  
+    return batch_df
+
+
 def read_autoloader(spark, path, checkpoint_location):
   schema = get_flight_schema()
   
@@ -55,33 +84,3 @@ def read_autoloader(spark, path, checkpoint_location):
       # .option("cloudFiles.schemaLocation", checkpoint_location+"/schema") \
   
   return streaming_df
-
-
-def read_batch(spark, path):
-    schema = get_flight_schema()
-  
-    batch_df = (spark.read.format("csv")
-      .option("header", "false")
-      .schema(schema)
-      .load(path)
-    )
-  
-    return batch_df
-
-
-def delay_type_transform(df):
-  delay_expr = expr(
-    """case when WeatherDelay != 'NA'
-              then 'WeatherDelay'
-            when NASDelay != 'NA'
-              then 'NASDelay'
-            when SecurityDelay != 'NA'
-              then 'SecurityDelay'
-            when LateAircraftDelay != 'NA'
-              then 'LateAircraftDelay'
-            when IsArrDelayed == 'YES' OR IsDepDelayed == 'YES'
-              then 'UncategorizedDelay'
-        end
-  """)
-  return df.withColumn("delay_type", delay_expr)
-
