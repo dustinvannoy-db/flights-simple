@@ -1,11 +1,12 @@
 # Databricks notebook source
-# COMMAND ----------
 dbutils.widgets.text("catalog", "main")
 dbutils.widgets.text("database", "dustinvannoy_dev")
+
 # COMMAND ----------
 
 # MAGIC %md
 # MAGIC ## Read csv data (batch mode)
+
 # COMMAND ----------
 
 # DBTITLE 1,Setup vars and functions
@@ -16,6 +17,7 @@ database = dbutils.widgets.get("database")
 path = "/databricks-datasets/airlines"
 raw_table_name = f"{catalog}.{database}.flights_raw"
 
+print(f"Work with table {raw_table_name}")
 # def write_to_delta(df, dest_table, checkpoint_location):
 #   df.writeStream.format("delta").outputMode("append").option("checkpointLocation", checkpoint_location).toTable(dest_table)
 
@@ -32,8 +34,13 @@ display(df)
 # MAGIC ## Write raw Delta Lake table (batch mode)
 
 # COMMAND ----------
+
 df.write.format("delta").mode("append").saveAsTable(raw_table_name)
 # shared_transforms.append_to_delta(df, raw_table_name)
 
 
 # COMMAND ----------
+
+# MAGIC %environment
+# MAGIC "client": "1"
+# MAGIC "base_environment": ""
