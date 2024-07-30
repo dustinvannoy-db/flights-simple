@@ -36,8 +36,7 @@ display(df)
 # COMMAND ----------
 
 df.write.format("delta").mode("append").saveAsTable(raw_table_name)
-# shared_transforms.append_to_delta(df, raw_table_name)
-
+print(f"Succesfully wrote data to {raw_table_name}")
 
 # COMMAND ----------
 
