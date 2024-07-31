@@ -57,13 +57,6 @@ jobs:
           pytest tests/ 
       #-k test_get_flight_schema__valid
       
-      # - name: Run integration test with dbconnect
-      #   env: 
-      #     SPARK_REMOTE: ${{secrets.SPARK_REMOTE_TST}}
-      #   run: |
-      #     source .venv/bin/activate
-      #     pytest tests/ -m "integration"
-      
       - uses: databricks/setup-cli@main
 
       - run: databricks bundle deploy --target test
@@ -71,8 +64,8 @@ jobs:
           DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN_TST }}
           DATABRICKS_BUNDLE_ENV: tst
 
-  pipeline_update:
-    name: "Run pipeline update"
+  validation:
+    name: "Run validation"
     runs-on: ubuntu-latest
     environment: test
     defaults:
@@ -88,7 +81,7 @@ jobs:
       - uses: databricks/setup-cli@main
 
       - shell: bash
-        name: Run pipeline update
+        name: Run validation job
         run: |
           set -o pipefail
           databricks bundle run -t test notebook_validation_job --refresh-all 2>&1 | tee output.log
