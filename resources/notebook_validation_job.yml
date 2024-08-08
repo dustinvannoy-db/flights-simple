@@ -27,7 +27,3 @@ resources:
           notebook_task:
             notebook_path: ../tests/integration/validation_notebook.ipynb
           max_retries: 0
-      
-      permissions:
-        - level: IS_OWNER
-          user_name: dustin.vannoy@databricks.com

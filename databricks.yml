@@ -10,11 +10,13 @@ include:
 
 variables:
   catalog:
-    default: "main"
+    default: "lorenzorubi"
   database:
-    default: "dustinvannoy_dev"
+    default: "flights_simple_dev"
   all_purpose_cluster_id:
-    default: "0326-164201-qhvj1pwh"
+    default: "0118-165440-l8erfx3g"
+  node_type_id:
+    default: "Standard_F4s_v2"
 
 targets:
   # The 'dev' target, used for development purposes.
@@ -26,9 +28,9 @@ targets:
     mode: development
     default: true
     workspace:
-      host: https://e2-dogfood.staging.cloud.databricks.com/
+      host: https://adb-984752964297111.11.azuredatabricks.net/
     variables:
-      all_purpose_cluster_id: "0326-164201-qhvj1pwh"
+      all_purpose_cluster_id: "0118-165440-l8erfx3g"
 
   test:
     # For staging deployments, we only have a single copy, so we override the
