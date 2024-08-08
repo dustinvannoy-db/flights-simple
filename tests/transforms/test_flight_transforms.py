@@ -1,5 +1,4 @@
-import pytest
-from pyspark.testing.utils import assertDataFrameEqual, assertSchemaEqual 
+from pyspark.testing.utils import assertDataFrameEqual, assertSchemaEqual
 import os
 import sys
 
@@ -11,22 +10,6 @@ print(parent_parent_dir)
 sys.path.insert(0,parent_parent_dir)
 
 from flights.transforms import flight_transforms
-
-
-@pytest.fixture(scope="module")
-def spark_session():
-    try:
-        from databricks.connect import DatabricksSession
-        return DatabricksSession.builder.getOrCreate()   
-    except (ValueError, RuntimeError, Exception):
-        print("Fallback into Databricks Connect config file")
-        # https://learn.microsoft.com/en-us/azure/databricks/dev-tools/databricks-connect/python/install#--a-databricks-configuration-profile
-        from databricks.connect import DatabricksSession
-        return DatabricksSession.builder.profile("unit_tests").getOrCreate()    
-    except ImportError:
-        print("No Databricks Connect, build and return local SparkSession")
-        from pyspark.sql import SparkSession
-        return SparkSession.builder.getOrCreate()
 
 
 def test_get_flight_schema__valid():
