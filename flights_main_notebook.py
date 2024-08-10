@@ -28,15 +28,19 @@ display(df)
 # COMMAND ----------
 
 # MAGIC %md
+# MAGIC ## Call transforms
+
+# COMMAND ----------
+
+# MAGIC %sql
+# MAGIC -- TODO: Add transformations
+
+# COMMAND ----------
+
+# MAGIC %md
 # MAGIC ## Write raw Delta Lake table (batch mode)
 
 # COMMAND ----------
 
 df.write.format("delta").mode("append").saveAsTable(raw_table_name)
 print(f"Succesfully wrote data to {raw_table_name}")
-
-# COMMAND ----------
-
-# MAGIC %environment
-# MAGIC "client": "1"
-# MAGIC "base_environment": ""
