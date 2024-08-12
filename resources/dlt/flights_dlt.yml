@@ -6,7 +6,7 @@ resources:
         var.source_path: /databricks-datasets/airlines
       libraries:
         - notebook:
-            path: ../flights_main_dlt
+            path: ../../flights_main_dlt.py
       target: ${var.flights_dlt_schema}
       development: false
       catalog: main
