@@ -10,6 +10,7 @@ import dlt
 
 # DBTITLE 1,Setup vars and functions
 from flights.transforms import flight_transforms, shared_transforms
+from flights.utils import flight_utils
 from pyspark.sql.functions import count, sum, expr
 path = spark.conf.get("var.source_path")
 
@@ -20,7 +21,7 @@ path = spark.conf.get("var.source_path")
 
 def flights_dlt_raw():
     print("Starting process for flights_dlt_raw")
-    df = flight_transforms.read_batch(spark, path).limit(1000)
+    df = flight_utils.read_batch(spark, path).limit(1000)
     df_transformed = (
         df.transform(flight_transforms.delay_type_transform)
           .transform(shared_transforms.add_metadata_columns)
