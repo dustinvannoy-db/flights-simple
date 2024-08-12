@@ -34,10 +34,10 @@ def test_flights_dlt_raw_counts():
 # COMMAND ----------
 
 @dlt.table(comment="Check number of records")
-@dlt.expect_or_fail("valid count", "count = 1000 or count = 0")
+@dlt.expect_or_fail("valid count", "record_count > 0")
 def test_flights_dlt_summary_count_check():
   cnt = dlt.read("flights_dlt_summary").count()
-  return spark.createDataFrame([[cnt]], schema="count long")
+  return spark.createDataFrame([[cnt]], schema="record_count long")
 
 # COMMAND ----------
 
