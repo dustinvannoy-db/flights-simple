@@ -11,29 +11,34 @@ dbutils.widgets.text("database", "dustinvannoy_dev")
 
 # DBTITLE 1,Setup vars and functions
 from flights.transforms import flight_transforms, shared_transforms
+from flights.utils import flight_utils
 catalog = dbutils.widgets.get("catalog")
 database = dbutils.widgets.get("database")
 
 path = "/databricks-datasets/airlines"
 raw_table_name = f"{catalog}.{database}.flights_raw"
 
+print(f"Work with table {raw_table_name}")
+# def write_to_delta(df, dest_table, checkpoint_location):
+#   df.writeStream.format("delta").outputMode("append").option("checkpointLocation", checkpoint_location).toTable(dest_table)
+
 
 # COMMAND ----------
 
 # DBTITLE 1,Read raw
-print(f"Attempting to read table {raw_table_name}")
-df = flight_transforms.read_batch(spark, path).limit(1000)
+df = flight_utils.read_batch(spark, path).limit(1000)
 display(df)
 
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ## Call transforms
+# MAGIC ## Transform data
 
 # COMMAND ----------
-
-# MAGIC %sql
-# MAGIC -- TODO: Add transformations
+df_transformed = (
+        df.transform(flight_transforms.delay_type_transform)
+          .transform(shared_transforms.add_metadata_columns)
+    )
 
 # COMMAND ----------
 
@@ -42,5 +47,5 @@ display(df)
 
 # COMMAND ----------
 
-df.write.format("delta").mode("append").saveAsTable(raw_table_name)
+df_transformed.write.format("delta").mode("append").saveAsTable(raw_table_name)
 print(f"Succesfully wrote data to {raw_table_name}")
