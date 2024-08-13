@@ -8,12 +8,12 @@ bundle:
 include:
   - resources/*.yml
   - resources/dlt/*.yml
-
-artifacts:
-  default:
-    type: whl
-    path: .
-
+  
+## Uncomment below to build wheel as part of bundle
+#artifacts:
+#  default:
+#    type: whl
+#    path: .
 
 variables:
   catalog:
