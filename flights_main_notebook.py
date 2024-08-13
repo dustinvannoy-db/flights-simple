@@ -12,6 +12,7 @@ dbutils.widgets.text("database", "dustinvannoy_dev")
 # DBTITLE 1,Setup vars and functions
 from flights.transforms import flight_transforms, shared_transforms
 from flights.utils import flight_utils
+
 catalog = dbutils.widgets.get("catalog")
 database = dbutils.widgets.get("database")
 
