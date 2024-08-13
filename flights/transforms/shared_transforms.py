@@ -1,6 +1,7 @@
 """Python functions to test
 These represent Python functions that you would keep in a Python file and import to test.
 """
+from pyspark.sql.functions import current_timestamp, current_date, col
 
 def add_metadata_columns(df, include_time=True):
     if include_time:
@@ -8,12 +9,5 @@ def add_metadata_columns(df, include_time=True):
     else:
         df = df.withColumn("last_updated_date", current_date())
      
-    df = df.withColumn("source_file", input_file_name())
+    df = df.withColumn("source_file", col("_metadata.file_path"))
     return df
-
-
-def append_to_delta(df, dest_table, streaming=False, checkpoint_location=None):
-    if not streaming:
-        df.write.format("delta").mode("append").saveAsTable(dest_table)
-    else:
-        df.writeStream.format("delta").outputMode("append").option("checkpointLocation", checkpoint_location).toTable(dest_table)

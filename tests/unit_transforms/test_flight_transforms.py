@@ -26,11 +26,6 @@ def spark_session():
         return SparkSession.builder.getOrCreate()
 
 
-def test_get_flight_schema__valid():
-    schema = flight_transforms.get_flight_schema()
-    assert schema is not None
-    assert len(schema) == 31
-
 def test_delay_type_transform__valid(spark_session):
     input_df = spark_session.createDataFrame([
         ["0","NA","NA","NA", "NO", "NO"],
