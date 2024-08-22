@@ -1,6 +1,11 @@
 # Databricks notebook source
 dbutils.widgets.text("catalog", "main")
 dbutils.widgets.text("database", "dustinvannoy_dev")
+artifact_path = f'/Workspace{dbutils.widgets.get("artifact_path")}/.internal'
+
+# COMMAND ----------
+
+# MAGIC %pip install {artifact_path}/flights-0.0.1-py3-none-any.whl
 
 # COMMAND ----------
 
@@ -40,3 +45,5 @@ print(f"Succesfully wrote data to {raw_table_name}")
 # MAGIC %environment
 # MAGIC "client": "1"
 # MAGIC "base_environment": ""
+# TODO this works: MAGIC "dependencies": ["/Workspace/Users/lorenzo.rubio@databricks.com/.bundle/flights_simple/dev/artifacts/.internal/flights-0.0.1-py3-none-any.whl"]
+# TODO should be something like MAGIC "dependencies": ["{artifact_path}/flights-0.0.1-py3-none-any.whl"], but the artifact_path needs to be passed to

@@ -1,0 +1,6 @@
+pytest
+dbldatagen
+jmespath
+pyparsing
+pandas<2.0.0
+wheel

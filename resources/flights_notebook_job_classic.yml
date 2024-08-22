@@ -8,13 +8,14 @@ resources:
         - task_key: notebook_task
           job_cluster_key: job_cluster
           notebook_task:
-            notebook_path: ../flights_main_notebook.py
+            notebook_path: ../notebooks/flights_main_notebook.py
             base_parameters:
                 catalog: ${var.catalog}
                 database: ${var.database}
           libraries:
             - pypi: 
                 package: pytest
+            - whl: ../dist/*.whl
           max_retries: 0
         
       job_clusters:

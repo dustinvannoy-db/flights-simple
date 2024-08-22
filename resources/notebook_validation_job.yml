@@ -18,6 +18,8 @@ resources:
             job_parameters:
               catalog: main
               database: flights_test
+          libraries:
+            - whl: ../dist/*.whl
           max_retries: 0
           
         - task_key: validation_task

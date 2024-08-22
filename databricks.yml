@@ -18,6 +18,10 @@ variables:
   node_type_id:
     default: "Standard_F4s_v2"
 
+artifacts:
+  default:
+    type: whl
+
 targets:
   # The 'dev' target, used for development purposes.
   # Whenever a developer deploys using 'dev', they get their own copy.
