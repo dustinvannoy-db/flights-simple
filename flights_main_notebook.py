@@ -21,7 +21,6 @@ raw_table_name = f"{catalog}.{database}.flights_raw"
 # COMMAND ----------
 
 # DBTITLE 1,Read raw
-print(f"Attempting to read table {raw_table_name}")
 df = flight_transforms.read_batch(spark, path).limit(1000)
 display(df)
 
@@ -34,9 +33,3 @@ display(df)
 
 df.write.format("delta").mode("append").saveAsTable(raw_table_name)
 print(f"Succesfully wrote data to {raw_table_name}")
-
-# COMMAND ----------
-
-# MAGIC %environment
-# MAGIC "client": "1"
-# MAGIC "base_environment": ""
