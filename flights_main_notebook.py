@@ -1,6 +1,6 @@
 # Databricks notebook source
 dbutils.widgets.text("catalog", "main")
-dbutils.widgets.text("database", "dustinvannoy_dev")
+dbutils.widgets.text("database", "wyia_schema")
 
 # COMMAND ----------
 
@@ -19,6 +19,7 @@ database = dbutils.widgets.get("database")
 path = "/databricks-datasets/airlines"
 raw_table_name = f"{catalog}.{database}.flights_raw"
 
+print("work with table of: {}".format(raw_table_name))
 
 # COMMAND ----------
 
@@ -32,6 +33,7 @@ display(df)
 # MAGIC ## Transform data
 
 # COMMAND ----------
+
 df_transformed = (
         df.transform(flight_transforms.delay_type_transform)
           .transform(shared_transforms.add_metadata_columns)
@@ -46,3 +48,7 @@ df_transformed = (
 
 df_transformed.write.format("delta").mode("append").saveAsTable(raw_table_name)
 print(f"Succesfully wrote data to {raw_table_name}")
+
+# COMMAND ----------
+
+

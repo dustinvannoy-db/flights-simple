@@ -19,13 +19,13 @@ variables:
   catalog:
     default: "main"
   database:
-    default: "dustinvannoy_dev"
+    default: "wyia_schema"
   all_purpose_cluster_id:
-    default: "0326-164201-qhvj1pwh"
+    default: "wyia-15.4"
   flights_test_schema:
     default: "flights_test"
   flights_dlt_schema:
-    default: "dustinvannoy_dev"
+    default: "wyia_schema"
 
 targets:
   # The 'dev' target, used for development purposes.
