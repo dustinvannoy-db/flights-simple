@@ -19,6 +19,21 @@ def run_pytest(pytest_path):
 
 # COMMAND ----------
 
+# MAGIC %load_ext autoreload
+# MAGIC %autoreload 2
+# MAGIC
+
+# COMMAND ----------
+
+# MAGIC %reload_ext autoreload
+
+# COMMAND ----------
+
+from flights.transforms import flight_transforms
+schema = flight_transforms.get_flight_schema()
+
+# COMMAND ----------
+
 run_pytest("transforms/test_flight_transforms.py")
 
 # COMMAND ----------
