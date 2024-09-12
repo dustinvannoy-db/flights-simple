@@ -21,7 +21,7 @@ variables:
   database:
     default: "wyia_schema"
   all_purpose_cluster_id:
-    default: "wyia-15.4"
+    default: "0912-052749-y1lv5imt"
   flights_test_schema:
     default: "flights_test"
   flights_dlt_schema:
@@ -39,7 +39,7 @@ targets:
     workspace:
       host: https://e2-dogfood.staging.cloud.databricks.com/
     variables:
-      all_purpose_cluster_id: "0326-164201-qhvj1pwh"
+      all_purpose_cluster_id: "0912-052749-y1lv5imt"
 
   test:
     # For staging deployments, we only have a single copy, so we override the
@@ -53,9 +53,9 @@ targets:
     run_as:
       user_name: ${workspace.current_user.userName}
     variables:
-      all_purpose_cluster_id: "0725-142209-7jvag949"
+      all_purpose_cluster_id: "0912-033841-4usa0x7u"
       flights_test_schema: flights_validation_test
-      flights_dlt_schema: dustinvannoy_test
+      flights_dlt_schema: wyia_schema
 
   staging:
     # For staging deployments, we only have a single copy, so we override the
@@ -69,7 +69,7 @@ targets:
     run_as:
       user_name: ${workspace.current_user.userName}
     variables:
-      all_purpose_cluster_id: "0326-164201-qhvj1pwh"
+      all_purpose_cluster_id: "wyia-15.4"
       flights_test_schema: flights_validation_staging
       flights_dlt_schema: dustinvannoy_staging
 
@@ -88,6 +88,6 @@ targets:
       # To run as service principal use service_principal_name (see Databricks documentation).
       user_name: ${workspace.current_user.userName}
     variables:
-      all_purpose_cluster_id: "0326-164201-qhvj1pwh"
+      all_purpose_cluster_id: "0912-052749-y1lv5imt"
       flights_test_schema: flights_validation_prod
       flights_dlt_schema: dustinvannoy_prod

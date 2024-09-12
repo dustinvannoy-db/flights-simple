@@ -30,4 +30,4 @@ resources:
       
       permissions:
         - level: IS_OWNER
-          user_name: dustin.vannoy@databricks.com
+          user_name: yi.wang@databricks.com
