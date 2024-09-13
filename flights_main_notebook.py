@@ -24,6 +24,7 @@ print("work with table of: {}".format(raw_table_name))
 # COMMAND ----------
 
 # DBTITLE 1,Read raw
+print("attempt to read table of: {}".format(raw_table_name))
 df = flight_utils.read_batch(spark, path).limit(1000)
 display(df)
 
