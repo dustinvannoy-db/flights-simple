@@ -8,6 +8,9 @@ resources:
           existing_cluster_id: ${var.all_purpose_cluster_id}
           notebook_task:
             notebook_path: ../tests/integration/setup_notebook.ipynb
+            base_parameters:
+                catalog: ${var.catalog}
+                database: ${var.flights_test_schema}
           max_retries: 0
         
         - task_key: notebook_job
@@ -16,8 +19,8 @@ resources:
           run_job_task:
             job_id: ${resources.jobs.flights_notebook.id}
             job_parameters:
-              catalog: main
-              database: flights_test
+              catalog: ${var.catalog}
+              database: ${var.flights_test_schema}
           libraries:
             - whl: ../dist/*.whl
           max_retries: 0
@@ -28,4 +31,7 @@ resources:
           existing_cluster_id: ${var.all_purpose_cluster_id}
           notebook_task:
             notebook_path: ../tests/integration/validation_notebook.ipynb
+            base_parameters:
+                catalog: ${var.catalog}
+                database: ${var.flights_test_schema}
           max_retries: 0

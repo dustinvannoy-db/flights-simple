@@ -1,4 +1,5 @@
 import pytest
+from pyspark.sql import SparkSession
 
 
 @pytest.fixture(scope="module")
@@ -12,11 +13,14 @@ def spark_session():
         """
         from databricks.connect import DatabricksSession
         try:
-            yield DatabricksSession.builder.getOrCreate()
+            session = DatabricksSession.builder.getOrCreate()
+            yield session
         except (ValueError, RuntimeError, Exception):
             print("Fallback into Databricks Connect config file")
             # https://learn.microsoft.com/en-us/azure/databricks/dev-tools/databricks-connect/python/install#--a-databricks-configuration-profile
-            yield DatabricksSession.builder.profile("unit_tests").getOrCreate()
+            session = DatabricksSession.builder.profile("unit_tests").getOrCreate()
+            yield session
+        # session.close()
     except (ModuleNotFoundError, ImportError):
         print("No Databricks Connect, build and return local SparkSession")
         """

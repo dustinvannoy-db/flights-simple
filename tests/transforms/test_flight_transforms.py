@@ -28,7 +28,6 @@ def test_delay_type_transform__valid(spark_session):
     expected_spec = (
         dg.DataGenerator(spark_session, name="expected", rows=len(delay_type_usecases))
         .withIdOutput()
-        # .withStructColumn("struct", {"WeatherDelay": "0", "delay_type": "WeatherDelay"})
     )
     for col in expected_dataset_pd.columns:
         expected_spec = expected_spec.withColumn(col, T.StringType(), values=expected_dataset_pd[col])

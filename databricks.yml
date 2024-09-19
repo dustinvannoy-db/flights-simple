@@ -17,17 +17,17 @@ include:
 
 variables:
   catalog:
-    default: "lorenzorubi"
+    default: "main"
   database:
-    default: "flights_simple_dev"
+    default: "dustinvannoy_dev"
   all_purpose_cluster_id:
     default: "0326-164201-qhvj1pwh"
   flights_test_schema:
-      default: "flights_test"
+    default: "flights_test"
   flights_dlt_schema:
-      default: "dustinvannoy_dev"
+    default: "dustinvannoy_dev"
   node_type_id:
-    default: "Standard_F4s_v2"
+    default: "m6gd.xlarge"
 
 artifacts:
   default:
@@ -43,9 +43,9 @@ targets:
     mode: development
     default: true
     workspace:
-      host: https://adb-984752964297111.11.azuredatabricks.net/
+      host: https://e2-dogfood.staging.cloud.databricks.com
     variables:
-      all_purpose_cluster_id: "0118-165440-l8erfx3g"
+      all_purpose_cluster_id: "0326-164201-qhvj1pwh"
 
   test:
     # For staging deployments, we only have a single copy, so we override the
