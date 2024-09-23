@@ -53,7 +53,7 @@ targets:
     run_as:
       user_name: ${workspace.current_user.userName}
     variables:
-      all_purpose_cluster_id: "0725-142209-7jvag949"
+      all_purpose_cluster_id: "0730-172948-runts698"
       flights_test_schema: flights_validation_test
       flights_dlt_schema: dustinvannoy_test
 
