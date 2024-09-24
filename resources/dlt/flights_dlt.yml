@@ -4,9 +4,10 @@ resources:
       name: flights_simple_dlt
       configuration:
         var.source_path: /databricks-datasets/airlines
+        artifact_path: /Workspace${workspace.artifact_path}/.internal
       libraries:
         - notebook:
-            path: ../../flights_main_dlt.py
+            path: ../../notebooks/flights_main_dlt.py
       target: ${var.flights_dlt_schema}
       development: false
       catalog: main

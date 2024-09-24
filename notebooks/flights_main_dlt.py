@@ -1,4 +1,8 @@
 # Databricks notebook source
+
+# MAGIC %pip install {spark.conf.get("artifact_path")}/.internal/flights-0.0.1-py3-none-any.whl
+# COMMAND ----------
+
 import dlt
 
 # COMMAND ----------
@@ -7,6 +11,7 @@ import dlt
 # MAGIC ## Read csv data (batch mode)
 
 # COMMAND ----------
+
 
 # DBTITLE 1,Setup vars and functions
 from flights.transforms import flight_transforms, shared_transforms

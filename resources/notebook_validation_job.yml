@@ -7,7 +7,7 @@ resources:
         - task_key: setup_task
           existing_cluster_id: ${var.all_purpose_cluster_id}
           notebook_task:
-            notebook_path: ../tests/integration/setup_notebook.ipynb
+            notebook_path: ../tests/integration/setup_notebook.py
             base_parameters:
                 catalog: ${var.catalog}
                 database: ${var.flights_test_schema}
@@ -30,7 +30,7 @@ resources:
             - task_key: notebook_job
           existing_cluster_id: ${var.all_purpose_cluster_id}
           notebook_task:
-            notebook_path: ../tests/integration/validation_notebook.ipynb
+            notebook_path: ../tests/integration/validation_notebook.py
             base_parameters:
                 catalog: ${var.catalog}
                 database: ${var.flights_test_schema}

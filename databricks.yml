@@ -43,7 +43,7 @@ targets:
     mode: development
     default: true
     workspace:
-      host: https://e2-dogfood.staging.cloud.databricks.com
+      host: https://e2-dogfood.staging.cloud.databricks.com/
     variables:
       all_purpose_cluster_id: "0326-164201-qhvj1pwh"
 
