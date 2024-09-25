@@ -5,8 +5,8 @@
 # COMMAND ----------
 
 import pytest
-import os
 import sys
+
 
 def run_pytest(pytest_path):
   # Skip writing pyc files on a readonly filesystem.

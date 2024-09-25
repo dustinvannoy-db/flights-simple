@@ -1,7 +1,11 @@
-import pytest
-from pyspark.testing.utils import assertDataFrameEqual, assertSchemaEqual 
 import os
 import sys
+
+import pandas as pd
+from pyspark.testing.utils import assertDataFrameEqual, assertSchemaEqual
+import dbldatagen as dg
+import pyspark.sql.types as T
+from data.delay_type import delay_type_usecases
 
 # Set my library directory to be in the path
 currentdir = os.path.dirname(__file__)
@@ -11,48 +15,30 @@ print(parent_parent_dir)
 sys.path.insert(0,parent_parent_dir)
 
 from flights.transforms import flight_transforms
-
-@pytest.fixture(scope="module")
-def spark_session():
-    try:
-        from databricks.connect import DatabricksSession
-        return DatabricksSession.builder.getOrCreate()   
-    except (ValueError, RuntimeError):
-        from databricks.connect import DatabricksSession
-        return DatabricksSession.builder.profile("unit_tests").getOrCreate()    
-    except ImportError:
-        print("No Databricks Connect, build and return local SparkSession")
-        from pyspark.sql import SparkSession
-        return SparkSession.builder.getOrCreate()
+from flights.utils import flight_utils
 
 
 def test_get_flight_schema__valid():
-    schema = flight_transforms.get_flight_schema()
+    schema = flight_utils.get_flight_schema()
     assert schema is not None
     assert len(schema) == 31
 
+
 def test_delay_type_transform__valid(spark_session):
-    input_df = spark_session.createDataFrame([
-        ["0","NA","NA","NA", "NO", "NO"],
-        ["NA","0","NA","NA", "NO", "NO"],
-        ["NA","NA","0","NA", "NO", "NO"],
-        ["NA","NA","NA", "0", "NO", "NO"],
-        ["NA","NA","NA","NA", "YES", "NO"],
-        ["NA","NA","NA","NA", "NO", "YES"],
-        ["0","0","0","0", "YES", "YES"],
-    ], ["WeatherDelay", "NASDelay", "SecurityDelay", "LateAircraftDelay", "IsArrDelayed", "IsDepDelayed"])
+    expected_dataset_pd = pd.DataFrame(delay_type_usecases)
+    expected_spec = (
+        dg.DataGenerator(spark_session, name="expected", rows=len(delay_type_usecases))
+        .withIdOutput()
+    )
+    for col in expected_dataset_pd.columns:
+        expected_spec = expected_spec.withColumn(col, T.StringType(), values=expected_dataset_pd[col])
+    data_df = expected_spec.build()
 
-    expected_data = [
-        ['WeatherDelay'], 
-        ['NASDelay'], 
-        ['SecurityDelay'], 
-        ['LateAircraftDelay'],
-        ['UncategorizedDelay'],
-        ['UncategorizedDelay'],
-        ['WeatherDelay']
-    ]
+    # data_df = spark_session.createDataFrame(delay_type_usecases)
+    input_df = data_df.drop("delay_type")
+    expected_df = data_df.select("delay_type")
 
-    expected_df = spark_session.createDataFrame(expected_data,["delay_type"])
+    # expected_df = spark_session.createDataFrame(expected_data,["delay_type"])
 
     result_df = flight_transforms.delay_type_transform(input_df)
 
