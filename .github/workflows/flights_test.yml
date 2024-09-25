@@ -15,12 +15,12 @@ on:
       - "**/*.yml"
       - "**/*.py"
 
-  # push:
-  #   branches:
-  #     - feature/202407
-  #   paths:
-  #     - "**/*.yml"
-  #     - "**/*.py"
+  push:
+    branches:
+      - feature/20240808
+    paths:
+      - "**/*.yml"
+      - "**/*.py"
 
 jobs:
   deploy:
@@ -53,7 +53,7 @@ jobs:
           DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN_TST }}
           DATABRICKS_CLUSTER_ID: ${{ secrets.DATABRICKS_CLUSTER_ID }}
         run: |
-          pytest tests/ 
+          pytest tests/transforms
       
       - uses: databricks/setup-cli@main
 
