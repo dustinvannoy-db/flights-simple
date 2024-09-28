@@ -60,10 +60,6 @@ targets:
       flights_dlt_schema: dustinvannoy_test
 
   staging:
-    # For staging deployments, we only have a single copy, so we override the
-    # workspace.root_path default of
-    # /Users/${workspace.current_user.userName}/.bundle/${bundle.target}/${bundle.name}
-    # to a path that is not specific to the current user.
     mode: production
     workspace:
       host: https://adb-984752964297111.11.azuredatabricks.net/
