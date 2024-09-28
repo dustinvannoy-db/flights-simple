@@ -1,3 +1,2 @@
-databricks-connect>=14.3
--r cicd-requirements.txt
+databricks-connect==15.4.2
 
