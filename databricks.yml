@@ -3,7 +3,7 @@
 # This is a Databricks asset bundle definition for datakickstart_dabs.
 # See https://docs.databricks.com/dev-tools/bundles/index.html for documentation.
 bundle:
-  name: flights_simple
+  name: lr_flights_simple
 
 include:
   - resources/*.yml
@@ -44,7 +44,7 @@ targets:
       all_purpose_cluster_id: 0928-011628-hel2xzoy
 
   test:
-    # For staging deployments, we only have a single copy, so we override the
+    # For test/staging deployments, we only have a single copy, so we override the
     # workspace.root_path default of
     # /Users/${workspace.current_user.userName}/.bundle/${bundle.target}/${bundle.name}
     # to a path that is not specific to the current user.
@@ -61,10 +61,6 @@ targets:
       flights_dlt_schema: flights_test
 
   staging:
-    # For staging deployments, we only have a single copy, so we override the
-    # workspace.root_path default of
-    # /Users/${workspace.current_user.userName}/.bundle/${bundle.target}/${bundle.name}
-    # to a path that is not specific to the current user.
     mode: production
     workspace:
       host: https://e2-dogfood.staging.cloud.databricks.com/
@@ -79,10 +75,6 @@ targets:
 
   # The 'prod' target, used for production deployment.
   prod:
-    # For production deployments, we only have a single copy, so we override the
-    # workspace.root_path default of
-    # /Users/${workspace.current_user.userName}/.bundle/${bundle.target}/${bundle.name}
-    # to a path that is not specific to the current user.
     mode: production
     workspace:
       host: https://e2-dogfood.staging.cloud.databricks.com/

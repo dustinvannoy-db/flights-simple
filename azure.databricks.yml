@@ -17,7 +17,7 @@ include:
 
 variables:
   catalog:
-    default: "lorenzorubi"
+    default: "main"
   database:
     default: "flights_dev"
   all_purpose_cluster_id:
@@ -28,10 +28,6 @@ variables:
     default: "flights_dev"
   node_type_id:
     default: "Standard_DS4_v2"
-
-artifacts:
-  default:
-    type: whl
 
 targets:
   # The 'dev' target, used for development purposes.
@@ -48,13 +44,13 @@ targets:
       all_purpose_cluster_id: "0118-165440-l8erfx3g"
 
   test:
-    # For staging deployments, we only have a single copy, so we override the
+    # For test/staging deployments, we only have a single copy, so we override the
     # workspace.root_path default of
     # /Users/${workspace.current_user.userName}/.bundle/${bundle.target}/${bundle.name}
     # to a path that is not specific to the current user.
     mode: production
     workspace:
-      host: https://e2-demo-west.cloud.databricks.com/
+      host: https://adb-984752964297111.11.azuredatabricks.net/
       root_path: /Shared/.bundle/${bundle.target}/${bundle.name}
     run_as:
       user_name: ${workspace.current_user.userName}
@@ -70,7 +66,7 @@ targets:
     # to a path that is not specific to the current user.
     mode: production
     workspace:
-      host: https://e2-dogfood.staging.cloud.databricks.com/
+      host: https://adb-984752964297111.11.azuredatabricks.net/
       root_path: /Shared/.bundle/${bundle.target}/${bundle.name}
     run_as:
       user_name: ${workspace.current_user.userName}
@@ -81,13 +77,9 @@ targets:
 
   # The 'prod' target, used for production deployment.
   prod:
-    # For production deployments, we only have a single copy, so we override the
-    # workspace.root_path default of
-    # /Users/${workspace.current_user.userName}/.bundle/${bundle.target}/${bundle.name}
-    # to a path that is not specific to the current user.
     mode: production
     workspace:
-      host: https://e2-dogfood.staging.cloud.databricks.com/
+      host: https://adb-984752964297111.11.azuredatabricks.net/
       root_path: /Shared/.bundle/${bundle.target}/${bundle.name}
     run_as:
       # This can run as a specific user or service principal in production.
