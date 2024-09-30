@@ -1,5 +1,6 @@
 wheel
 pytest
+databricks-sdk[notebook]
 delta-spark>=2.2.0
 numpy<1.24
 pyarrow
