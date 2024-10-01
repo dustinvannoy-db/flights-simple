@@ -1,6 +1,6 @@
 # Databricks notebook source
 
-# MAGIC %pip install {spark.conf.get("artifact_path")}/.internal/flights-0.0.1-py3-none-any.whl
+# MAGIC %pip install {spark.conf.get("artifact_path")}/flights-0.0.1-py3-none-any.whl
 # COMMAND ----------
 
 import dlt

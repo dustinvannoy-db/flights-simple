@@ -34,11 +34,8 @@ def test_delay_type_transform__valid(spark_session):
         expected_spec = expected_spec.withColumn(col, T.StringType(), values=expected_dataset_pd[col])
     data_df = expected_spec.build()
 
-    # data_df = spark_session.createDataFrame(delay_type_usecases)
     input_df = data_df.drop("delay_type")
     expected_df = data_df.select("delay_type")
-
-    # expected_df = spark_session.createDataFrame(expected_data,["delay_type"])
 
     result_df = flight_transforms.delay_type_transform(input_df)
 
