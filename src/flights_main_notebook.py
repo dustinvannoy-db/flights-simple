@@ -1,12 +1,12 @@
 # Databricks notebook source
 dbutils.widgets.text("catalog", "main")
 dbutils.widgets.text("database", "dustinvannoy_dev")
-artifact_path = f'/Workspace{dbutils.widgets.get("artifact_path")}/.internal'
+# artifact_path = f'/Workspace{dbutils.widgets.get("artifact_path")}/.internal'
 
 # COMMAND ----------
 
 # TODO this is needed for serverless only, as a temp solution
-# MAGIC %pip install {artifact_path}/flights-0.0.1-py3-none-any.whl
+# %pip install {artifact_path}/flights-0.0.1-py3-none-any.whl
 
 # COMMAND ----------
 
