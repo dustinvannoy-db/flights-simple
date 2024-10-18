@@ -1,8 +1,8 @@
 # Databricks notebook source
-
-# COMMAND ----------
-
 import dlt
+import sys, os
+artifact_path = spark.conf.get("artifact_path")
+sys.path.append(os.path.abspath(artifact_path))
 
 # COMMAND ----------
 
