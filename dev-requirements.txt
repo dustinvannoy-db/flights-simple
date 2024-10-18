@@ -1,3 +1,4 @@
 wheel
 pytest
 databricks-sdk[notebook]
+pandas==1.5.3
