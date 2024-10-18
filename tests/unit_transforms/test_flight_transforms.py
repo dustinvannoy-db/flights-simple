@@ -18,7 +18,7 @@ from flights.transforms import flight_transforms
 def spark_session():
     try:
         from databricks.connect import DatabricksSession
-        return DatabricksSession.builder.host(os.environ['DATABRICKS_HOST']).token(os.environ['DATABRICKS_TOKEN']).serverless(True).getOrCreate()   
+        return DatabricksSession.builder.getOrCreate()   
     # except (ValueError, RuntimeError):
     #     from databricks.connect import DatabricksSession
     #     return DatabricksSession.builder.profile("unit_tests").getOrCreate()    
