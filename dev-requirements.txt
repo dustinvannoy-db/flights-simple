@@ -1,11 +1,3 @@
 wheel
 pytest
 databricks-sdk[notebook]
-delta-spark>=2.2.0
-numpy<1.24
-pyarrow
-dbldatagen
-jmespath
-pyparsing
-pandas<2.0.0
-#pyspark>=3.3.0
