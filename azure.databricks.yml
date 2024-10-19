@@ -13,7 +13,7 @@ include:
 #artifacts:
 #  default:
 #    type: whl
-#    path: ./src
+#    path: .
 
 variables:
   catalog:
@@ -21,22 +21,11 @@ variables:
   database:
     default: "flights_dev"
   flights_test_schema:
-    default: "flights_validation_dev"
+    default: "flights_test"
   flights_dlt_schema:
     default: "flights_dev"
-  spark_version:
-    default: "15.3.x-scala2.12"
   node_type_id:
-    default: "m6gd.xlarge"
-  shared_cluster_config:
-    type: "complex"
-    default:
-      spark_version: ${var.spark_version}
-      node_type_id: ${var.node_type_id}
-      data_security_mode: USER_ISOLATION
-      autoscale:
-          min_workers: 1
-          max_workers: 2
+    default: "Standard_DS4_v2"
 
 targets:
   # The 'dev' target, used for development purposes.
@@ -48,7 +37,7 @@ targets:
     mode: development
     default: true
     workspace:
-      host: https://e2-dogfood.staging.cloud.databricks.com/
+      host: https://adb-984752964297111.11.azuredatabricks.net/
 
   test:
     # For test/staging deployments, we only have a single copy, so we override the
@@ -57,38 +46,35 @@ targets:
     # to a path that is not specific to the current user.
     mode: production
     workspace:
-      host: https://e2-demo-west.cloud.databricks.com/
+      host: https://adb-984752964297111.11.azuredatabricks.net/
       root_path: /Shared/.bundle/${bundle.target}/${bundle.name}
     run_as:
       user_name: ${workspace.current_user.userName}
     variables:
-      database: flights_test
       flights_test_schema: flights_validation_test
-      flights_dlt_schema: flights_test
+      flights_dlt_schema: dustinvannoy_test
 
   staging:
     mode: production
     workspace:
-      host: https://e2-dogfood.staging.cloud.databricks.com/
+      host: https://adb-984752964297111.11.azuredatabricks.net/
       root_path: /Shared/.bundle/${bundle.target}/${bundle.name}
     run_as:
       user_name: ${workspace.current_user.userName}
     variables:
-      database: flights_staging
       flights_test_schema: flights_validation_staging
-      flights_dlt_schema: flights_staging
+      flights_dlt_schema: dustinvannoy_staging
 
   # The 'prod' target, used for production deployment.
   prod:
     mode: production
     workspace:
-      host: https://e2-dogfood.staging.cloud.databricks.com/
+      host: https://adb-984752964297111.11.azuredatabricks.net/
       root_path: /Shared/.bundle/${bundle.target}/${bundle.name}
     run_as:
       # This can run as a specific user or service principal in production.
       # To run as service principal use service_principal_name (see Databricks documentation).
       user_name: ${workspace.current_user.userName}
     variables:
-      database: flights_prod
       flights_test_schema: flights_validation_prod
-      flights_dlt_schema: flights_prod
+      flights_dlt_schema: dustinvannoy_prod

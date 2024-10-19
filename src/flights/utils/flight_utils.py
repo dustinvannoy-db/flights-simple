@@ -58,8 +58,5 @@ def read_autoloader(spark, path, checkpoint_location):
       .option("cloudFiles.includeExistingFiles", "true") \
       .schema(schema) \
       .load(path)
-
-      # .option("cloudFiles.inferSchema", "true") \
-      # .option("cloudFiles.schemaLocation", checkpoint_location+"/schema") \
   
   return streaming_df
