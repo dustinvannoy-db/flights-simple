@@ -8,16 +8,10 @@ resources:
       tasks:
         - task_key: notebook_task
           notebook_task:
-            notebook_path: ../flights_main_notebook.py
+            notebook_path: ../src/flights_main_notebook.py
             base_parameters:
                 catalog: ${var.catalog}
                 database: ${var.database}
+                artifact_path: ${workspace.artifact_path}
           max_retries: 0
 
-      # schedule:
-      #   quartz_cron_expression: '0 30 19 * * ?'
-      #   timezone_id: America/Los_Angeles
-
-      # email_notifications:
-      #   on_failure:
-      #     - fake@example.com

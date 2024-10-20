@@ -1,14 +1,8 @@
 import pytest
 from pyspark.testing.utils import assertDataFrameEqual, assertSchemaEqual 
-import os
 import sys
 
-# Set my library directory to be in the path
-currentdir = os.path.dirname(__file__)
-parentdir = os.path.dirname(currentdir)
-parent_parent_dir =  os.path.dirname(parentdir)
-print(parent_parent_dir)
-sys.path.insert(0,parent_parent_dir)
+sys.path.append('./src')
 
 from flights.transforms import flight_transforms
 
@@ -17,9 +11,9 @@ def spark_session():
     try:
         from databricks.connect import DatabricksSession
         return DatabricksSession.builder.getOrCreate()   
-    except (ValueError, RuntimeError):
-        from databricks.connect import DatabricksSession
-        return DatabricksSession.builder.profile("unit_tests").getOrCreate()    
+    # except (ValueError, RuntimeError):
+    #     from databricks.connect import DatabricksSession
+    #     return DatabricksSession.builder.profile("unit_tests").getOrCreate()    
     except ImportError:
         print("No Databricks Connect, build and return local SparkSession")
         from pyspark.sql import SparkSession
