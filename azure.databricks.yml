@@ -52,7 +52,7 @@ targets:
       user_name: ${workspace.current_user.userName}
     variables:
       flights_test_schema: flights_validation_test
-      flights_dlt_schema: dustinvannoy_test
+      flights_dlt_schema: flights_test
 
   staging:
     mode: production
@@ -63,7 +63,7 @@ targets:
       user_name: ${workspace.current_user.userName}
     variables:
       flights_test_schema: flights_validation_staging
-      flights_dlt_schema: dustinvannoy_staging
+      flights_dlt_schema: flights_staging
 
   # The 'prod' target, used for production deployment.
   prod:
@@ -77,4 +77,4 @@ targets:
       user_name: ${workspace.current_user.userName}
     variables:
       flights_test_schema: flights_validation_prod
-      flights_dlt_schema: dustinvannoy_prod
+      flights_dlt_schema: flights_prod

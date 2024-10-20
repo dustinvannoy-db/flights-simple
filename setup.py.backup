@@ -15,7 +15,7 @@ setup(
     name="flights",
     version=flights.__version__,
     url="https://databricks.com",
-    author="training@dustinvannoy.com",
+    author="Databricks Field Eng",
     description="Flights package",
     packages=find_packages(where='.'),
     package_dir={'': 'flights'},

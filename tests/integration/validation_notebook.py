@@ -13,7 +13,7 @@
 # COMMAND ----------
 
 dbutils.widgets.text("catalog", "main")
-dbutils.widgets.text("database", "dustinvannoy_dev")
+dbutils.widgets.text("database", "flights_dev")
 
 # COMMAND ----------
 
