@@ -1,7 +1,7 @@
 resources:
   pipelines:
     flights_simple_dlt_validation:
-      name: flights_simple_dlt_validation
+      name: flights_simple_dlt_validation_${bundle.target}
       configuration:
         var.source_path: /databricks-datasets/airlines/part-00000
         artifact_path: /Workspace${workspace.file_path}/src
