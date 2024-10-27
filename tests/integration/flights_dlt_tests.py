@@ -36,8 +36,8 @@ def test_flights_dlt_raw_counts():
 @dlt.table(comment="Check number of records")
 @dlt.expect_or_fail("valid count", "record_count > 0")
 def test_flights_dlt_summary_count_check():
-  cnt = dlt.read("flights_dlt_summary").count()
-  return spark.createDataFrame([[cnt]], schema="record_count long")
+  cnt = dlt.read("flights_dlt_summary").select(F.count("UniqueCarrier").alias("record_count"))
+  return cnt
 
 # COMMAND ----------
 
