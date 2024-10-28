@@ -17,7 +17,7 @@ on:
 
   # push:
   #   branches:
-  #     - feature/yyyymmdd
+  #     - fix/yyyymmdd
   #   paths:
   #     - "**/*.yml"
   #     - "**/*.py"
