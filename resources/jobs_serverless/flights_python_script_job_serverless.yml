@@ -1,0 +1,25 @@
+# Simply python script example
+resources:
+  jobs:
+    flights_python_script:
+      name: flights_python_script_job_${bundle.target}
+
+      tasks:
+        - task_key: python_script
+          spark_python_task:
+            python_file: ../../_adhoc/explore_data.py
+            parameters: ["--catalog", "${var.catalog}", "--database", "${var.database}"]
+          environment_key: Default
+      
+      environments:
+        - environment_key: Default
+          spec:
+            client: 1
+
+      # schedule:
+      #   quartz_cron_expression: '0 30 19 * * ?'
+      #   timezone_id: America/Los_Angeles
+
+      # email_notifications:
+      #   on_failure:
+      #     - fake@example.com

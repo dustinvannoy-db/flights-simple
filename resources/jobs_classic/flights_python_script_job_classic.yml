@@ -1,14 +1,14 @@
-# The main job for flights_project
+# Simply python script example
 resources:
   jobs:
-    flights_python_script_classic:
-      name: flights_python_script_job_classic_${bundle.target}
+    flights_python_script:
+      name: flights_python_script_job_${bundle.target}
 
       tasks:
         - task_key: python_script
           job_cluster_key: job_cluster
           spark_python_task:
-            python_file: ../_adhoc/explore_data.py
+            python_file: ../../_adhoc/explore_data.py
             parameters: ["--catalog", "${var.catalog}", "--database", "${var.database}"]
 
       job_clusters:

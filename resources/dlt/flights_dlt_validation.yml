@@ -2,16 +2,15 @@ resources:
   pipelines:
     flights_simple_dlt_validation:
       name: flights_simple_dlt_validation_${bundle.target}
+      development: false
       configuration:
         var.source_path: /databricks-datasets/airlines/part-00000
-        artifact_path: /Workspace${workspace.file_path}/src
+        artifact_path: ${workspace.file_path}/src
       libraries:
         - notebook:
             path: ../../src/flights_main_dlt.py
         - notebook:
             path: ../../tests/integration/flights_dlt_tests.py
+      catalog: ${var.catalog}
       target: ${var.flights_test_schema}
-      development: false
-      catalog: main
-      serverless: true
-      # data_sampling: false
+      serverless: ${var.is_dlt_serverless}

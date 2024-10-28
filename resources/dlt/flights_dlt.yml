@@ -2,17 +2,16 @@ resources:
   pipelines:
     flights_simple_dlt:
       name: flights_simple_dlt_${bundle.target}
+      development: false
       configuration:
         var.source_path: /databricks-datasets/airlines
-        artifact_path: /Workspace${workspace.file_path}/src
+        artifact_path: ${workspace.file_path}/src
       libraries:
         - notebook:
             path: ../../src/flights_main_dlt.py
+      catalog: ${var.catalog}
       target: ${var.flights_dlt_schema}
-      development: false
-      catalog: main
-      serverless: true
-      # data_sampling: false
+      serverless: ${var.is_dlt_serverless}
   
   jobs:
     flights_dlt_job:

@@ -8,7 +8,7 @@ resources:
       tasks:
         - task_key: notebook_task
           notebook_task:
-            notebook_path: ../src/flights_main_notebook.py
+            notebook_path: ../../src/flights_main_notebook.py
             base_parameters:
                 catalog: ${var.catalog}
                 database: ${var.database}

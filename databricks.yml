@@ -8,6 +8,9 @@ bundle:
 include:
   - resources/*.yml
   - resources/dlt/*.yml
+  - resources/jobs_serverless/*.yml
+  # - resources/jobs_classic/*.yml
+  
   
 ## Uncomment below to build wheel as part of bundle
 #artifacts:
@@ -16,6 +19,8 @@ include:
 #    path: ./src
 
 variables:
+  is_dlt_serverless:
+    default: "true"
   catalog:
     default: "main"
   database:
@@ -25,7 +30,7 @@ variables:
   flights_dlt_schema:
     default: "flights_dev"
   spark_version:
-    default: "15.3.x-scala2.12"
+    default: "15.4.x-scala2.12"
   node_type_id:
     default: "m6gd.xlarge"
   shared_cluster_config:

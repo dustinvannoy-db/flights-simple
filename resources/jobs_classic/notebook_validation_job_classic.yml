@@ -7,7 +7,7 @@ resources:
         - task_key: setup_task
           job_cluster_key: job_cluster
           notebook_task:
-            notebook_path: ../tests/integration/setup_notebook.py
+            notebook_path: ../../tests/integration/setup_notebook.py
             base_parameters:
                 catalog: ${var.catalog}
                 database: ${var.flights_test_schema}
@@ -28,7 +28,7 @@ resources:
             - task_key: notebook_job
           job_cluster_key: job_cluster
           notebook_task:
-            notebook_path: ../tests/integration/validation_notebook.py
+            notebook_path: ../../tests/integration/validation_notebook.py
             base_parameters:
                 catalog: ${var.catalog}
                 database: ${var.flights_test_schema}
