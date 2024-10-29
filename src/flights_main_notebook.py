@@ -1,7 +1,7 @@
 # Databricks notebook source
 dbutils.widgets.text("catalog", "main")
-dbutils.widgets.text("database", "dustinvannoy_dev")
-# artifact_path = f'/Workspace{dbutils.widgets.get("artifact_path")}/.internal'
+dbutils.widgets.text("database", "flights_dev")
+# artifact_path = f'{dbutils.widgets.get("artifact_path")}/.internal'
 
 # COMMAND ----------
 
@@ -32,19 +32,7 @@ raw_table_name = f"{catalog}.{database}.flights_raw"
 
 # DBTITLE 1,Read raw
 df = flight_utils.read_batch(spark, path).limit(1000)
-df = flight_utils.read_batch(spark, path).limit(1000)
 display(df)
-
-# COMMAND ----------
-
-# MAGIC %md
-# MAGIC ## Transform data
-
-# COMMAND ----------
-df_transformed = (
-        df.transform(flight_transforms.delay_type_transform)
-          .transform(shared_transforms.add_metadata_columns)
-    )
 
 # COMMAND ----------
 
@@ -64,6 +52,5 @@ df_transformed = (
 
 # COMMAND ----------
 
-df_transformed.write.format("delta").mode("append").saveAsTable(raw_table_name)
 df_transformed.write.format("delta").mode("append").saveAsTable(raw_table_name)
 print(f"Succesfully wrote data to {raw_table_name}")
