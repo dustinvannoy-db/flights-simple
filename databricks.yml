@@ -51,10 +51,8 @@ targets:
       host: https://e2-dogfood.staging.cloud.databricks.com/
 
   test:
-    # For test/staging deployments, we only have a single copy, so we override the
-    # workspace.root_path default of
-    # /Users/${workspace.current_user.userName}/.bundle/${bundle.target}/${bundle.name}
-    # to a path that is not specific to the current user.
+    # For test/staging deployments, we only have a single copy, so we should deploy as 
+    # the same user (Service Principal) ever time.
     mode: production
     workspace:
       host: https://e2-demo-west.cloud.databricks.com/
@@ -67,10 +65,8 @@ targets:
       flights_dlt_schema: flights_test
 
   test_automated:
-    # For test/staging deployments, we only have a single copy, so we override the
-    # workspace.root_path default of
-    # /Users/${workspace.current_user.userName}/.bundle/${bundle.target}/${bundle.name}
-    # to a path that is not specific to the current user.
+    # For test/staging deployments, we only have a single copy, so we should deploy as 
+    # the same user (Service Principal) ever time.
     mode: production
     workspace:
       root_path: /Users/${workspace.current_user.userName}/.bundle/${bundle.name}/${bundle.target}
