@@ -31,7 +31,6 @@ raw_table_name = f"{catalog}.{database}.flights_raw"
 
 # DBTITLE 1,Read raw
 df = flight_utils.read_batch(spark, path).limit(1000)
-display(df)
 
 # COMMAND ----------
 
@@ -39,6 +38,7 @@ display(df)
 # MAGIC ## Transform data
 
 # COMMAND ----------
+
 df_transformed = (
         df.transform(flight_transforms.delay_type_transform)
           .transform(shared_transforms.add_metadata_columns)
