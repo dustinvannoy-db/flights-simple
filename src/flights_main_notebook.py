@@ -27,7 +27,6 @@ database = dbutils.widgets.get("database")
 path = "/databricks-datasets/airlines"
 raw_table_name = f"{catalog}.{database}.flights_raw"
 
-
 # COMMAND ----------
 
 # DBTITLE 1,Read raw
@@ -52,5 +51,5 @@ df_transformed = (
 
 # COMMAND ----------
 
-df_transformed.write.format("delta").mode("append").saveAsTable(raw_table_name)
+df_transformed.write.format("delta").mode("append").option("mergeSchema", "true").saveAsTable(raw_table_name)
 print(f"Succesfully wrote data to {raw_table_name}")
