@@ -9,6 +9,6 @@ def add_metadata_columns(df, include_time=True):
     else:
         df = df.withColumn("last_updated_date", current_date())
      
-    df = df.withColumn("project", lit("flights_simple"))
+    df = df.withColumn("source_project", lit("flights_simple"))
 
     return df

@@ -30,7 +30,7 @@ def test_add_metadata__valid(spark_session):
             .add("id", "string")
             .add("name", "string")
             .add("last_updated_date", "date")
-            .add("project", "string")
+            .add("source_project", "string")
     )
 
     result_df = shared_transforms.add_metadata_columns(input_df, include_time=False)
